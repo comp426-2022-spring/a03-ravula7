@@ -6,7 +6,7 @@ const app = express();
 
 
 //Starting app server
-var port = 5000
+var port = 5555
 
 const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%',port))
@@ -14,7 +14,7 @@ const server = app.listen(port, () => {
 
 //defining check endpoint
 app.get('/app', (req,res) => {
-    res.status(200).end('OK')
+    res.status(200).end('200 OK')
 })
 
 
@@ -29,10 +29,9 @@ app.get('/app/flip', (req,res) => {
 
 //endpoint for array of flips
 app.get('/app/flips/:number', (req,res) => {
-  var arr = coinFlips(req.params.number);
+  const arr = coinFlips(req.params.number);
 
   res.status(200).json({ 'raw' : arr , 'summary' : countFlips(arr)})
-  //tails & heads are quoted in summary ?
 })
 
 //endpoint for call against heads
