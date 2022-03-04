@@ -1,7 +1,7 @@
 //Requiring dependencies
 
 const express = require('express');
-//const { get } = require('express/lib/response');
+const { get } = require('express/lib/response');
 const app = express();
 const minimist = require('minimist'); //for parsing
 
