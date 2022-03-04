@@ -3,12 +3,13 @@
 const express = require('express');
 const { get } = require('express/lib/response');
 const app = express();
-const minimist = require('minimist'); //for parsing
 
 //Starting app server
-var port = 5000;
-args = process.argv.slice(2); //slice arguments for port number where args is an array
-port = args[0] 
+
+let port = 0;
+const args = require('minimist')(process.argv.slice(2)); //slice arguments for port number where args is an array
+port = args['port'] //0
+
 if(port == undefined){
   port = 5000;
 }
