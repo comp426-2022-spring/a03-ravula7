@@ -1,16 +1,17 @@
 //Requiring dependencies
 
 const express = require('express');
-const { get } = require('express/lib/response');
+//const { get } = require('express/lib/response');
 const app = express();
 
 
 //Starting app server
-var port = 5555
+var port = 5000;
 
 const server = app.listen(port, () => {
-    console.log('App listening on port %PORT%'.replace('%PORT%',port))
+  console.log('App listening on port %PORT%'.replace('%PORT%',port))
 });
+
 
 //defining check endpoint
 app.get('/app', (req,res) => {
@@ -48,7 +49,7 @@ app.get('/app/flip/call/tails', (req,res) => {
 
 //Defining default endpoint 
 app.use(function(req, res){
-    res.status(404).send('404 NOT FOUND')
+    res.status(404).send('404 Not found')
 })
 
 
