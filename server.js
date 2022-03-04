@@ -1,14 +1,15 @@
 //Requiring dependencies
 
-const express = require('express');
+var express = require('express');
 //const { get } = require('express/lib/response');
-const app = express();
+var app = express();
+
 
 
 //Starting app server
-var port = 5000;
+var port = 5000
 
-const server = app.listen(port, () => {
+var server = app.listen(port, () => {
   console.log('App listening on port %PORT%'.replace('%PORT%',port))
 });
 
