@@ -1,15 +1,16 @@
 //Requiring dependencies
 
-var express = require('express');
+const express = require('express');
 //const { get } = require('express/lib/response');
-var app = express();
-
-
+const app = express();
+const minimist = require('minimist'); //for parsing
 
 //Starting app server
-var port = 5000
+var port = 5000;
+args = process.argv.slice(2); //slice arguments for port number where args is an array
+port = args[0] 
 
-var server = app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('App listening on port %PORT%'.replace('%PORT%',port))
 });
 
@@ -18,6 +19,7 @@ var server = app.listen(port, () => {
 app.get('/app', (req,res) => {
     res.status(200).end('200 OK')
 })
+
 
 
 app.get('/app/echo/:number', (req,res) => {
