@@ -36,21 +36,26 @@ app.get('/app/flip', (req,res) => {
 })
 
 //endpoint for array of flips
+
 app.get('/app/flips/:number', (req,res) => {
   const arr = coinFlips(req.params.number);
-
-  res.status(200).json({ 'raw' : arr , 'summary' : countFlips(arr)})
+  const tails = countTails(arr);
+  const heads = countHeads(arr);
+  res.status(200).json({ 'raw' : arr , 'summary' : {'tails' : tails , 'heads' : heads}})
 })
 
 //endpoint for call against heads
 app.get('/app/flip/call/heads', (req,res) => {
-  res.status(200).json(flipACoin("heads"))
+  const heads = "heads";
+  const flipped = flipACoin("heads");
+  res.status(200).json({'call' : heads , 'flip' :  flipped , 'result' : result(heads,flipped)})
 })
 
 //endpoint for call against tails
 app.get('/app/flip/call/tails', (req,res) => {
-  let tails = "tails";
-  res.status(200).json(flipACoin(tails))
+  const tails = "tails";
+  const flipped = flipACoin("tails");
+  res.status(200).json({'call' : tails , 'flip' :  flipped , 'result' : result(tails,flipped)})
 })
 
 
@@ -58,11 +63,6 @@ app.get('/app/flip/call/tails', (req,res) => {
 app.use(function(req, res){
     res.status(404).send('404 Not found')
 })
-
-
-
-
-
 
 /** Coin flip functions 
  * This module will emulate a coin flip given various conditions as parameters as defined below
@@ -140,21 +140,26 @@ app.use(function(req, res){
      * @returns {{ heads: number, tails: number }}
      */
     
-    function countFlips(array) {
+    function countTails(array) {
     var length = array.length;
-    var heads = 0;
     var tails = 0;
     for(var i=0; i<length; i++){
-      if(array[i]=="heads"){
-        heads++;
-      }
-      else{
+      if(array[i]=="tails"){
         tails++;
       }
     }
-    const flipscounted = "{ tails: " + tails + "," + "heads: " + heads + " }";
-    return flipscounted;
+    return tails;
     }
+    function countHeads(array) {
+      var length = array.length;
+      var heads = 0;
+      for(var i=0; i<length; i++){
+        if(array[i]=="heads"){
+          heads++;
+        }
+      }
+      return heads;
+      }
     
     /** Flip a coin!
      * 
@@ -180,17 +185,21 @@ app.use(function(req, res){
       }
       */
      let flipped = coinFlip()
-     let result = null;
+     return flipped;
+    }
+    
+    function result(call, flipped){
+      let result = null;
       if(call==flipped){
         result = "win";
       }
       else{
         result = "lose";
       }
-    return "{ call: '"+ call + "', flip: '" + flipped + "', result: '" + result + "' }";
+      return result;
     }
-    
-    
+  
+  
     /** Export 
      * 
      * Export all of your named functions
